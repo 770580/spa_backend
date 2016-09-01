@@ -62,7 +62,7 @@ describe 'Delete' do
     expect(response).to be_success
   end
 
-  it "shouldn't any records"  do
+  it "shouldn't any records" do
     delete "/api/posts/#{post.id}", as: :json
     expect(Post.count).to eq 0
   end
