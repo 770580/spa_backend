@@ -53,7 +53,7 @@
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
-server '54.186.9.135',
+server '54.213.196.176',
   user: 'deploy',
   roles: %w{web app db},
   ssh_options: {

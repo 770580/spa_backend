@@ -13,7 +13,7 @@
     # Директория установки Rbenv
     rbenv_root: '{{ home }}/.rbenv'
     # Название приложения
-    name: 'flashcards'
+    name: 'spa_backend'
     # Путь до нашего приложения
     application: '{{ home }}/applications/{{ name }}'
 
