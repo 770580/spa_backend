@@ -3,7 +3,7 @@ lock '3.6.1'
 
 set :application, 'spa_backend'
 set :repo_url, 'git@github.com:770580/spa_backend.git'
-set :branch, 'master'
+set :branch, 'deploy_backend'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
