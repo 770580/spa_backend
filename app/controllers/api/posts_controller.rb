@@ -1,7 +1,15 @@
 module Api
   class PostsController < ApplicationController
+
+    before_action :authenticate_user
+
     def index
       render json: Post.all
+    end
+
+    def show
+      post = Post.find(params[:id])
+      render json: post
     end
 
     def create
