@@ -7,7 +7,8 @@ gem 'rack-cors'
 gem 'dotenv-rails'
 gem 'knock'
 gem 'active_model_serializers'
-gem 'kaminari'
+gem 'will_paginate'
+gem 'pg_search'
 
 group :development, :test do
   gem 'byebug', platform: :mri
