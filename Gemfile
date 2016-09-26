@@ -9,6 +9,7 @@ gem 'knock'
 gem 'active_model_serializers'
 gem 'will_paginate'
 gem 'pg_search'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'byebug', platform: :mri

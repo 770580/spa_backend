@@ -50,7 +50,7 @@ module Api
     private
 
     def post_params
-      params.require(:post).permit(:title, :body, :username)
+      params.require(:post).permit(:title, :body, :username, :post_image)
     end
 
     def pagination_meta(object)
