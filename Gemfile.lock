@@ -209,7 +209,7 @@ DEPENDENCIES
   capistrano-rbenv
   capistrano3-puma
   carrierwave
-  database_cleaner
+  database_cleaner (~> 1.5.3)
   dotenv-rails
   factory_girl_rails
   knock
