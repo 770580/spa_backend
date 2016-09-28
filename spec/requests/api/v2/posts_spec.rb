@@ -5,12 +5,6 @@ describe 'Post' do
 
   describe 'Index' do
 
-    it 'should be success' do
-      post = create(:post)
-      get '/api/v2/posts', headers: header
-      expect(response).to be_success
-    end
-
     it 'the post attributes are the same' do
       post = create(:post)
       get '/api/v2/posts', headers: header
@@ -27,8 +21,8 @@ describe 'Post' do
       expect(json['data'][0]['attributes']['title']).to eq(post.title)
     end
 
-    it 'search is working', :focus => true do
-      posts = 20.times { FactoryGirl.create(:post) }
+    it 'search is working' do
+      posts = 20.times { create(:post) }
       get_params = { search: '26' }
       get '/api/v2/posts', headers: header, params: get_params
       json = JSON.parse(response.body)
@@ -53,11 +47,6 @@ describe 'Post' do
       }
     }
 
-    it 'should be success' do
-      post '/api/v2/posts', headers: header, params: post_params
-      expect(response).to be_success
-    end
-
     it 'should be "Hot news"' do
       post '/api/v2/posts', headers: header, params: post_params
       expect(Post.first.title).to eq 'Hot news'
@@ -73,24 +62,14 @@ describe 'Post' do
       }
     }
 
-    it 'should be success' do
-      put "/api/v2/posts/#{post.id}", headers: header, params: post_params
-      expect(response).to be_success
-    end
-
     it 'should be "Cold news"' do
       put "/api/v2/posts/#{post.id}", headers: header, params: post_params
-      expect(Post.first.title).to eq 'Cold news'
+      expect(Post.find(post.id).title).to eq 'Cold news'
     end
   end
 
   describe 'Delete' do
     let!(:post) { create(:post) }
-
-    it 'should be success' do
-      delete "/api/v2/posts/#{post.id}", headers: header
-      expect(response).to be_success
-    end
 
     it "shouldn't any records" do
       delete "/api/v2/posts/#{post.id}", headers: header

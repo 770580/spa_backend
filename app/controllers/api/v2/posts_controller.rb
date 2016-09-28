@@ -7,9 +7,14 @@ module Api
         post = params['search'] ? Post.search_by_title(params['search']) : Post.all
 
         if params['sort']
-          f = params['sort']
-          field = f[0] == '-' ? f[1..-1] : f
-          order = f[0] == '-' ? 'DESC' : 'ASC'
+          sort = params['sort']
+          if sort.start_with? ('-')
+            field = sort.delete('-')
+            order = 'DESC'
+          else
+            field = sort
+            order = 'ASC'
+          end
           post = post.order("#{field} #{order}") if Post.new.has_attribute?(field)
         end
 
