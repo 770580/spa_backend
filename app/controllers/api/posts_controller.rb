@@ -2,6 +2,7 @@ module Api
   class PostsController < ApplicationController
 
     before_action :authenticate_user
+    before_action :set_ams_adapter
 
     def index
       render json: Post.all
@@ -39,6 +40,10 @@ module Api
 
     def post_params
       params.require(:post).permit(:title, :body, :username)
+    end
+
+    def set_ams_adapter
+      ActiveModel::Serializer.config.adapter = :attributes
     end
   end
 end
