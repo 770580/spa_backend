@@ -2,20 +2,18 @@ module Api
   module V2
     class PostsController < ApplicationController
       before_action :authenticate_user
+      before_action :set_ams_adapter
 
       def index
         post = params['search'] ? Post.search_by_title(params['search']) : Post.all
 
-        if params['sort']
-          sort = params['sort']
-          if sort.start_with? ('-')
-            field = sort.delete('-')
-            order = 'DESC'
-          else
-            field = sort
-            order = 'ASC'
-          end
-          post = post.order("#{field} #{order}") if Post.new.has_attribute?(field)
+        if sort = params['sort']
+          order_param = if sort.start_with? ('-')
+                          { field: sort.delete('-'), order: :desc }
+                        else
+                          { field: sort, order: :asc }
+                        end
+          post = post.order("#{order_param[:field]} #{order_param[:order]}") if Post.new.has_attribute?(order_param[:field])
         end
 
         post = post.page(params[:page] ? params[:page][:number] : 1)
@@ -65,6 +63,10 @@ module Api
           total_pages: object.total_pages,
           total_count: object.total_entries
         }
+      end
+
+      def set_ams_adapter
+        ActiveModel::Serializer.config.adapter = :JsonApi
       end
     end
   end

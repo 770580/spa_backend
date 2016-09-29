@@ -2,31 +2,32 @@ module Api
   class PostsController < ApplicationController
 
     before_action :authenticate_user
+    before_action :set_ams_adapter
 
     def index
-      render json: Post.all, adapter: nil
+      render json: Post.all
     end
 
     def show
       post = Post.find(params[:id])
-      render json: post, adapter: nil
+      render json: post
     end
 
     def create
       post = Post.new(post_params)
       if post.save
-        render json: post, adapter: nil
+        render json: post
       else
-        render json: post.errors, adapter: nil
+        render json: post.errors
       end
     end
 
     def update
       post = Post.find(params[:id])
       if post.update(post_params)
-        render json: post, adapter: nil
+        render json: post
       else
-        render json: post.errors, adapter: nil
+        render json: post.errors
       end
     end
 
@@ -39,6 +40,10 @@ module Api
 
     def post_params
       params.require(:post).permit(:title, :body, :username)
+    end
+
+    def set_ams_adapter
+      ActiveModel::Serializer.config.adapter = :attributes
     end
   end
 end
